@@ -1,1 +1,116 @@
-업데이트 예정
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study - My Dev Log</title>
+  <link rel="stylesheet" href="./css/study.css" />
+</head>
+
+<body>
+
+  <div class="desktop">
+    <div class="desktop-file" id="memoFile">
+      <div class="icon">📝</div>
+      <span>About Me.txt</span>
+    </div>
+  </div>
+
+  <div class="window">
+
+    <div class="title-bar">
+      <span>📁 Study</span>
+
+      <div class="window-buttons">
+        <div class="btn minimize">—</div>
+        <div class="btn maximize">▢</div>
+        <div class="btn close">✕</div>
+      </div>
+    </div>
+
+    <div class="path-bar">
+      <span class="path" onclick="goHome()">C:</span>
+      <span>></span>
+      <span class="path" onclick="goHome()">Users</span>
+      <span>></span>
+      <span class="path" onclick="goHome()">Haeum</span>
+      <span>></span>
+      <span class="path highlight">Study</span>
+    </div>
+
+    <div class="container">
+
+      <div class="board-header">
+        <h2>📚 Study Log</h2>
+        <button onclick="openWrite()" class="write-btn">+ 기록</button>
+      </div>
+
+      <div class="board-list" id="studyList"></div>
+
+    </div>
+
+  </div>
+  
+  <div class="modal" id="modal">
+    <div class="modal-content write-modal">
+      <h3>공부 기록</h3>
+      <input type="text" id="subject" placeholder="과목 (ex. JavaScript)" />
+      <textarea id="content" placeholder="공부 내용"></textarea>
+
+      <div class="modal-buttons">
+        <button onclick="saveStudy()" class="btn-primary">저장</button>
+        <button onclick="closeWrite()" class="btn-secondary">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="viewModal">
+    <div class="modal-content file-view">
+      <div class="file-header">
+        <span>📄</span>
+        <h3 id="viewSubject"></h3>
+      </div>
+
+      <p class="file-date" id="viewDate"></p>
+
+      <div class="file-content" id="viewContent"></div>
+
+      <div class="modal-buttons">
+        <button onclick="editStudy()" class="btn-primary">수정</button>
+        <button onclick="deleteStudy()" class="btn-danger">삭제</button>
+        <button onclick="closeView()" class="btn-secondary">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="taskbar">
+    <div class="task-center">
+      <div class="task-item">⚙️</div>
+      <div class="task-item">👤</div>
+      <div class="task-item" onclick="goHome()">📁</div>
+      <div class="task-item active">📝</div>
+      <div class="task-item">💻</div>
+      <div class="task-item">🎵</div>
+    </div>
+  </div>
+
+  <div class="modal" id="memoModal">
+    <div class="memo-window">
+        <div class="memo-title-bar">
+            <span>📝 About Me.txt</span>
+            <div class="memo-close" onclick="closeMemo()">✕</div>
+        </div>
+
+        <div class="memo-body">
+            <div id="memoContent">
+              흠 뭐라쓰지
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <script src="./script/study.js"></script>
+</body>
+
+</html>

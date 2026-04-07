@@ -111,6 +111,8 @@ function openPost(index) {
 function deletePost() {
   if (currentIndex === null) return;
 
+  if (!confirm("정말 삭제하시겠습니까?")) return;
+
   posts.splice(currentIndex, 1);
   currentIndex = null;
 
