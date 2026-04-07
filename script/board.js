@@ -2,6 +2,7 @@ const $ = (id) => document.getElementById(id);
 
 let posts = JSON.parse(localStorage.getItem("posts")) || [];
 let currentIndex = null;
+let isEditing = false;
 
 const elements = {
   modal: $("modal"),
@@ -14,6 +15,12 @@ const elements = {
   viewContent: $("viewContent")
 };
 
+const windowEl = document.querySelector(".window");
+const minimizeBtn = document.querySelector(".minimize");
+const maximizeBtn = document.querySelector(".maximize");
+const closeBtn = document.querySelector(".close");
+const taskItem = document.querySelector("#task-window");
+
 function savePosts() {
   localStorage.setItem("posts", JSON.stringify(posts));
 }
@@ -22,7 +29,8 @@ function goHome() {
   location.href = "index.html";
 }
 
-function openWrite() {
+function openWrite(edit = false) {
+  isEditing = edit;
   elements.modal.style.display = "flex";
 }
 
@@ -47,26 +55,30 @@ function addPost() {
   const title = elements.title.value.trim();
   const content = elements.content.value;
 
-  if (!title) {
-    alert("파일 이름을 입력하세요!");
-    return;
-  }
+  if (!title) return;
 
-  posts.unshift({
-    title,
-    content,
-    date: new Date().toISOString().split("T")[0]
-  });
+  if (isEditing && currentIndex !== null) {
+    posts[currentIndex].title = title;
+    posts[currentIndex].content = content;
+  } else {
+    posts.unshift({
+      title,
+      content,
+      date: new Date().toISOString().split("T")[0]
+    });
+  }
 
   savePosts();
   renderPosts();
   closeWrite();
   clearInputs();
+  isEditing = false;
 }
 
 function createPostElement(post, index) {
   const div = document.createElement("div");
-  div.className = "post" + (index === currentIndex ? " active" : "");
+
+  div.className = "post";
 
   div.innerHTML = `
     <span class="file">📄 ${post.title}</span>
@@ -74,6 +86,7 @@ function createPostElement(post, index) {
   `;
 
   div.onclick = () => openPost(index);
+
   return div;
 }
 
@@ -97,7 +110,6 @@ function openPost(index) {
 
 function deletePost() {
   if (currentIndex === null) return;
-  if (!confirm("이 파일을 삭제하시겠습니까?")) return;
 
   posts.splice(currentIndex, 1);
   currentIndex = null;
@@ -107,4 +119,57 @@ function deletePost() {
   renderPosts();
 }
 
+function editPost() {
+  if (currentIndex === null) return;
+
+  const post = posts[currentIndex];
+
+  elements.title.value = post.title;
+  elements.content.value = post.content;
+
+  closeView();
+  openWrite(true);
+}
+
 renderPosts();
+
+taskItem.classList.add("active");
+
+minimizeBtn.onclick = () => {
+  windowEl.classList.add("minimized");
+};
+
+maximizeBtn.onclick = () => {
+  windowEl.classList.toggle("maximized");
+  maximizeBtn.textContent =
+    windowEl.classList.contains("maximized") ? "❐" : "▢";
+};
+
+closeBtn.onclick = () => {
+  windowEl.classList.add("hidden");
+  taskItem.classList.remove("active");
+};
+
+taskItem.onclick = () => {
+  windowEl.classList.remove("minimized");
+  windowEl.classList.remove("hidden");
+  taskItem.classList.add("active");
+};
+
+document.querySelectorAll(".task-item").forEach(item => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll(".task-item").forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+  });
+});
+
+const memoFile = document.getElementById("memoFile");
+const memoModal = document.getElementById("memoModal");
+
+memoFile.addEventListener("dblclick", () => {
+    memoModal.style.display = "flex";
+});
+
+function closeMemo() {
+    memoModal.style.display = "none";
+}

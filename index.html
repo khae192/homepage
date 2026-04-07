@@ -9,14 +9,39 @@
 </head>
 
 <body>
+
+    <div class="desktop">
+        <div class="desktop-file" id="memoFile">
+            <div class="icon">📝</div>
+            <span>About Me.txt</span>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="task-center">
+            <div class="task-item">⚙️</div>
+            <div class="task-item">👤</div>
+            <div class="task-item active" id="task-window">📁</div>
+            <div class="task-item">📝</div>
+            <div class="task-item">💻</div>
+            <div class="task-item">🎵</div>
+        </div>
+    </div>
+
     <div class="window">
 
         <div class="title-bar">
-            📁 My Study Log
+            <span>📁 My Study Log</span>
+
+            <div class="window-buttons">
+                <div class="btn minimize">—</div>
+                <div class="btn maximize">▢</div>
+                <div class="btn close">✕</div>
+            </div>
         </div>
 
         <div class="path-bar">
-            <span></a>C:\</span>
+            <span>C:\</span>
             <span class="path"><a href="index.html">Users</a></span>
             <span>></span>
             <span class="path highlight"><a href="index.html">Haeum</a></span>
@@ -42,6 +67,21 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="modal" id="memoModal">
+        <div class="memo-window">
+            <div class="memo-title-bar">
+                <span>📝 About Me.txt</span>
+                <div class="memo-close" onclick="closeMemo()">✕</div>
+            </div>
+
+            <div class="memo-body">
+                <div id="memoContent">
+                    흠 뭐라쓰지
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="./script/script.js"></script>

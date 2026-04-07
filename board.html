@@ -5,31 +5,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Board - My Dev Log</title>
-
   <link rel="stylesheet" href="./css/board.css" />
 </head>
 
 <body>
 
+  <div class="desktop">
+    <div class="desktop-file" id="memoFile">
+      <div class="icon">📝</div>
+      <span>About Me.txt</span>
+    </div>
+  </div>
+
   <div class="window">
 
     <div class="title-bar">
-      📁 Board
+      <span>📁 Board</span>
+
+      <div class="window-buttons">
+        <div class="btn minimize">—</div>
+        <div class="btn maximize">▢</div>
+        <div class="btn close">✕</div>
+      </div>
     </div>
 
     <div class="path-bar">
       <span class="path" onclick="goHome()">C:</span>
-      <span>\</span>
+      <span>></span>
       <span class="path" onclick="goHome()">Users</span>
-      <span>\</span>
+      <span>></span>
       <span class="path" onclick="goHome()">Haeum</span>
-      <span>\</span><span class="path highlight" onclick="location.href='board.html'">Board</span>
+      <span>></span>
+      <span class="path highlight">Board</span>
     </div>
 
     <div class="container">
 
       <div class="board-header">
-        <h2>📂 게시판</h2>
+        <h2>📂 Board</h2>
         <button onclick="openWrite()" class="write-btn">+ 새 파일</button>
       </div>
 
@@ -40,14 +53,14 @@
   </div>
 
   <div class="modal" id="modal">
-    <div class="modal-content">
+    <div class="modal-content write-modal">
       <h3>파일 생성</h3>
       <input type="text" id="title" placeholder="파일 이름" />
       <textarea id="content" placeholder="내용"></textarea>
 
       <div class="modal-buttons">
-        <button onclick="addPost()">생성</button>
-        <button onclick="closeWrite()">취소</button>
+        <button onclick="addPost()" class="btn-primary">생성</button>
+        <button onclick="closeWrite()" class="btn-secondary">취소</button>
       </div>
     </div>
   </div>
@@ -64,11 +77,38 @@
       <div class="file-content" id="viewContent"></div>
 
       <div class="modal-buttons">
-        <button onclick="deletePost()" class="delete-btn">삭제</button>
-        <button onclick="closeView()">닫기</button>
+        <button onclick="editPost()" class="btn-primary">수정</button>
+        <button onclick="deletePost()" class="btn-danger">삭제</button>
+        <button onclick="closeView()" class="btn-secondary">닫기</button>
       </div>
     </div>
   </div>
+
+  <div class="taskbar">
+    <div class="task-center">
+      <div class="task-item">⚙️</div>
+      <div class="task-item">👤</div>
+      <div class="task-item active" id="task-window">📁</div>
+      <div class="task-item">📝</div>
+      <div class="task-item">💻</div>
+      <div class="task-item">🎵</div>
+    </div>
+  </div>
+
+  <div class="modal" id="memoModal">
+    <div class="memo-window">
+        <div class="memo-title-bar">
+            <span>📝 About Me.txt</span>
+            <div class="memo-close" onclick="closeMemo()">✕</div>
+        </div>
+
+        <div class="memo-body">
+            <div id="memoContent">
+              흠 뭐라쓰지
+            </div>
+        </div>
+    </div>
+</div>
 
   <script src="./script/board.js"></script>
 </body>
